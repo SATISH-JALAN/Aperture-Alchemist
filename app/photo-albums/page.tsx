@@ -1,20 +1,50 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { albums } from "@/lib/albums"
 import { AlbumCard } from "@/components/album-card"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const categories = ["All", "Wedding", "Event", "Travel", "Portrait", "Others"]
 
 export default function PhotoAlbumsPage() {
   const [activeCategory, setActiveCategory] = useState("All")
   const [mounted, setMounted] = useState(false)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  const checkScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    }
+  }
+
+  useEffect(() => {
+    checkScroll()
+    window.addEventListener("resize", checkScroll)
+    return () => window.removeEventListener("resize", checkScroll)
+  }, [])
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 200
+      const newScrollLeft =
+        scrollContainerRef.current.scrollLeft + (direction === "right" ? scrollAmount : -scrollAmount)
+      scrollContainerRef.current.scrollTo({
+        left: newScrollLeft,
+        behavior: "smooth",
+      })
+    }
+  }
 
   const filteredAlbums = activeCategory === "All" ? albums : albums.filter((album) => album.category === activeCategory)
 
@@ -58,16 +88,37 @@ export default function PhotoAlbumsPage() {
         </div>
       </section>
 
-      {/* Minimal Sticky Filter Bar */}
+      {/* Minimal Sticky Filter Bar with Arrows */}
       <div className="sticky top-0 z-40 bg-black/80 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="flex items-center justify-center gap-8 md:gap-12 overflow-x-auto scrollbar-hide no-scrollbar">
+        <div className="max-w-7xl mx-auto px-6 py-6 relative group">
+          {/* Left Arrow */}
+          <AnimatePresence>
+            {canScrollLeft && (
+              <motion.button
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                onClick={() => scroll("left")}
+                className="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 z-50 bg-black/80 backdrop-blur-sm p-2 rounded-full border border-white/10 hover:bg-[#FFD700] hover:text-black transition-all shadow-lg"
+                aria-label="Scroll left"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          {/* Scroll Container */}
+          <div
+            ref={scrollContainerRef}
+            onScroll={checkScroll}
+            className="flex items-center justify-center gap-8 md:gap-12 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] scroll-smooth px-8"
+          >
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
                 className={cn(
-                  "text-sm font-medium tracking-widest uppercase transition-all duration-300 relative py-2",
+                  "text-sm font-medium tracking-widest uppercase transition-all duration-300 relative py-2 whitespace-nowrap flex-shrink-0",
                   activeCategory === category ? "text-[#FFD700]" : "text-white/40 hover:text-white",
                 )}
               >
@@ -81,6 +132,22 @@ export default function PhotoAlbumsPage() {
               </button>
             ))}
           </div>
+
+          {/* Right Arrow */}
+          <AnimatePresence>
+            {canScrollRight && (
+              <motion.button
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                onClick={() => scroll("right")}
+                className="absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 z-50 bg-black/80 backdrop-blur-sm p-2 rounded-full border border-white/10 hover:bg-[#FFD700] hover:text-black transition-all shadow-lg"
+                aria-label="Scroll right"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </motion.button>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 

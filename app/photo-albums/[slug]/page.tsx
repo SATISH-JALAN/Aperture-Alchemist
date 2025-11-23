@@ -284,16 +284,13 @@ export default function AlbumDetailPage() {
         )}
       </AnimatePresence>
 
-      {/* Moved button lower to avoid overlap with floating dock */}
-      <button
-        onClick={() => router.push("/photo-albums")}
-        className="absolute top-10 left-8 z-40 flex items-center gap-2 text-white/70 hover:text-[#FFD700] transition-colors group"
+      {/* Back button positioned below floating dock */}
+      <Link
+        href="/photo-albums"
+        className="fixed top-24 left-6 z-50 pointer-events-auto md:top-20 md:left-6 p-3 rounded-full bg-black/20 backdrop-blur-xl border border-white/10 text-white/90 hover:text-[#FFD700] hover:bg-black/40 hover:border-[#FFD700]/30 transition-all duration-300 group shadow-lg inline-flex items-center"
       >
-        <div className="p-2 rounded-full bg-white/5 border border-white/10 group-hover:border-[#FFD700]/50 transition-all backdrop-blur-sm">
-          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-        </div>
-        <span className="font-medium">Back to Albums</span>
-      </button>
+        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+      </Link>
     </div>
   )
 }

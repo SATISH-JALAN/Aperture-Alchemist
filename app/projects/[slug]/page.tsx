@@ -39,14 +39,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/90" />
         <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.05] mix-blend-overlay" />
 
-        {/* Fixed positioning to align with Floating Dock and increased z-index */}
-        <div className="fixed top-6 left-6 z-50 pointer-events-none">
+        {/* Fixed positioning - below floating dock on mobile, aligned with dock on desktop */}
+        <div className="fixed top-24 left-6 z-50 pointer-events-none md:top-20 md:left-6">
           <Link
             href="/projects"
-            className="pointer-events-auto inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black/20 backdrop-blur-xl border border-white/10 text-white/90 hover:text-[#FFD700] hover:bg-black/40 hover:border-[#FFD700]/30 transition-all duration-300 group shadow-lg"
+            className="pointer-events-auto inline-flex items-center gap-2 p-3 rounded-full bg-black/20 backdrop-blur-xl border border-white/10 text-white/90 hover:text-[#FFD700] hover:bg-black/40 hover:border-[#FFD700]/30 transition-all duration-300 group shadow-lg"
           >
             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            <span className="text-sm font-medium tracking-wide uppercase">Back to Projects</span>
           </Link>
         </div>
 
