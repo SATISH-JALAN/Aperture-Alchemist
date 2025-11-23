@@ -271,16 +271,21 @@ export default function HomePage() {
 
     const isLateCard = index >= 8
 
-    if (scrollProgress > 0 && scrollProgress <= 0.35) {
-      const progress = Math.min(scrollProgress / 0.35, 1)
+    // Faster animation thresholds for mobile
+    const fadeInEnd = isMobile ? 0.25 : 0.35
+    const descendEnd = isMobile ? 0.45 : 0.55
+    const loopStart = isMobile ? 0.85 : 0.95
+
+    if (scrollProgress > 0 && scrollProgress <= fadeInEnd) {
+      const progress = Math.min(scrollProgress / fadeInEnd, 1)
       const delay = index * 0.05
       const adjustedProgress = Math.max(0, Math.min((progress - delay) * 2, 1))
 
       opacity = isLateCard ? 0 : adjustedProgress
     }
 
-    if (scrollProgress > 0.35 && scrollProgress <= 0.55) {
-      const progress = Math.min((scrollProgress - 0.35) / 0.2, 1)
+    if (scrollProgress > fadeInEnd && scrollProgress <= descendEnd) {
+      const progress = Math.min((scrollProgress - fadeInEnd) / (descendEnd - fadeInEnd), 1)
       const eased = progress * progress * (3 - 2 * progress)
 
       x = 0
@@ -289,8 +294,8 @@ export default function HomePage() {
       opacity = isLateCard ? Math.min(eased * 2, 1) : 1
     }
 
-    if (scrollProgress > 0.55) {
-      const progress = Math.min((scrollProgress - 0.55) / 0.25, 1)
+    if (scrollProgress > descendEnd) {
+      const progress = Math.min((scrollProgress - descendEnd) / (loopStart - descendEnd), 1)
       const eased = progress * progress * (3 - 2 * progress)
 
       const startX = explodedX
@@ -307,7 +312,7 @@ export default function HomePage() {
       opacity = card.row.opacity
     }
 
-    if (scrollProgress >= 0.95) {
+    if (scrollProgress >= loopStart) {
       const loopWidth = isMobile ? cards.length * mobileSpacing : 6800
       const minX = isMobile ? -(cards.length * mobileSpacing) / 2 : -3400
 
@@ -356,7 +361,7 @@ export default function HomePage() {
       </div>
 
       {/* Hero Section - Pinned scroll container */}
-      <div ref={containerRef} className="relative z-10" style={{ height: isMobile ? "600vh" : "800vh" }} id="hero">
+      <div ref={containerRef} className="relative z-10" style={{ height: isMobile ? "280vh" : "800vh" }} id="hero">
         <div className="sticky top-0 left-0 right-0 h-[100dvh] overflow-hidden flex items-center justify-center">
           {/* Hero-specific background gradient for depth */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/50 to-black pointer-events-none z-0" />
@@ -403,8 +408,8 @@ export default function HomePage() {
                 <div
                   className="absolute inset-0 flex flex-col items-center justify-center"
                   style={{
-                    opacity: scrollProgress < 0.5 ? 1 - (scrollProgress - 0.4) * 5 : 0,
-                    transform: `scale(${scrollProgress < 0.5 ? 1 - scrollProgress * 0.2 : 0.8})`,
+                    opacity: scrollProgress < (isMobile ? 0.35 : 0.5) ? 1 - (scrollProgress - (isMobile ? 0.25 : 0.4)) * (isMobile ? 10 : 5) : 0,
+                    transform: `scale(${scrollProgress < (isMobile ? 0.35 : 0.5) ? 1 - scrollProgress * 0.2 : 0.8})`,
                     transition: "opacity 0.2s, transform 0.2s",
                   }}
                 >
@@ -420,8 +425,8 @@ export default function HomePage() {
                 <div
                   className="absolute inset-0 flex items-center justify-center pointer-events-auto"
                   style={{
-                    opacity: scrollProgress > 0.5 ? (scrollProgress - 0.5) * 2 : 0,
-                    transform: `scale(${scrollProgress > 0.5 ? 0.85 + (scrollProgress - 0.5) * 0.3 : 0.85}) translateY(-${scrollProgress > 0.75 ? (scrollProgress - 0.75) * 50 : 0}vh)`,
+                    opacity: scrollProgress > (isMobile ? 0.35 : 0.5) ? (scrollProgress - (isMobile ? 0.35 : 0.5)) * 2 : 0,
+                    transform: `scale(${scrollProgress > (isMobile ? 0.35 : 0.5) ? 0.85 + (scrollProgress - (isMobile ? 0.35 : 0.5)) * 0.3 : 0.85}) translateY(-${scrollProgress > (isMobile ? 0.6 : 0.75) ? (scrollProgress - (isMobile ? 0.6 : 0.75)) * 50 : 0}vh)`,
                     transition: "opacity 0.2s, transform 0.2s",
                   }}
                 >
