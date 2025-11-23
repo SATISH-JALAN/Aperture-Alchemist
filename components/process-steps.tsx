@@ -60,7 +60,7 @@ export default function ProcessSteps() {
 
 function ProcessCard({ step, index }: { step: any; index: number }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, amount: 0.2 })
+  const inView = useInView(ref, { once: true, amount: 0.3, margin: "0px 0px -100px 0px" })
 
   const isLeft = step.direction === "left"
 
@@ -68,9 +68,18 @@ function ProcessCard({ step, index }: { step: any; index: number }) {
     <motion.div
       ref={ref}
       className="flex flex-col md:flex-row items-stretch gap-0 md:gap-8 bg-black rounded-2xl md:rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-400 border border-neutral-800"
-      initial={{ opacity: 0, x: isLeft ? -60 : 60 }}
-      animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isLeft ? -60 : 60 }}
-      transition={{ duration: 0.8, delay: index * 0.2 }}
+      initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
+      animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isLeft ? -40 : 40 }}
+      transition={{ 
+        duration: 0.7, 
+        delay: index * 0.12,
+        ease: [0.22, 0.61, 0.36, 1]
+      }}
+      style={{ 
+        willChange: inView ? 'auto' : 'transform, opacity',
+        backfaceVisibility: 'hidden',
+        transform: 'translateZ(0)'
+      }}
     >
       <div className={`w-full md:w-2/5 h-64 md:h-auto flex-shrink-0 overflow-hidden group ${!isLeft && "md:order-2"}`}>
         <img
