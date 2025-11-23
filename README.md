@@ -24,6 +24,7 @@ A premium videography and photography portfolio showcasing stunning visual story
 <td width="50%">
 
 ### ✨ **Stunning Hero Animations**
+
 - Parallax card animations
 - Smooth scroll-triggered effects
 - GPU-accelerated transitions
@@ -32,6 +33,7 @@ A premium videography and photography portfolio showcasing stunning visual story
 <td width="50%">
 
 ### 🎨 **Premium Design**
+
 - Dark theme with gold accents
 - Custom typography (Montserrat & Cinzel)
 - Glassmorphism effects
@@ -42,6 +44,7 @@ A premium videography and photography portfolio showcasing stunning visual story
 <td width="50%">
 
 ### 📱 **Fully Responsive**
+
 - Mobile-first approach
 - Touch-optimized interactions
 - Adaptive layouts
@@ -50,6 +53,7 @@ A premium videography and photography portfolio showcasing stunning visual story
 <td width="50%">
 
 ### ⚡ **Performance Optimized**
+
 - Next.js 16 with Turbopack
 - Image optimization
 - Lazy loading
@@ -65,49 +69,57 @@ A premium videography and photography portfolio showcasing stunning visual story
 ### Prerequisites
 
 Before you begin, ensure you have the following installed:
+
 - **Node.js** 18.x or higher
 - **pnpm** 8.x or higher (recommended) or npm
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/SATISH-JALAN/Aperture-Alchemist.git
    cd Aperture-Alchemist
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
-   *Or if using npm:*
+
+   _Or if using npm:_
+
    ```bash
    npm install
    ```
 
 3. **Run the development server**
+
    ```bash
    pnpm run dev
    ```
-   *Or with npm:*
+
+   _Or with npm:_
+
    ```bash
    npm run dev
    ```
 
 4. **Open your browser**
-   
+
    Navigate to [http://localhost:3000](http://localhost:3000) to see the site running locally! 🎉
 
 ---
 
 ## 📦 Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm run dev` | Start development server with hot reload |
-| `pnpm run build` | Build production-ready application |
-| `pnpm run start` | Start production server |
-| `pnpm run lint` | Run ESLint to check code quality |
+| Command          | Description                              |
+| ---------------- | ---------------------------------------- |
+| `pnpm run dev`   | Start development server with hot reload |
+| `pnpm run build` | Build production-ready application       |
+| `pnpm run start` | Start production server                  |
+| `pnpm run lint`  | Run ESLint to check code quality         |
 
 ---
 
@@ -115,13 +127,13 @@ Before you begin, ensure you have the following installed:
 
 <div align="center">
 
-| Technology | Purpose |
-|:----------:|:-------:|
-| ![Next.js](https://img.shields.io/badge/-Next.js-000?logo=next.js) | React Framework |
-| ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white) | Type Safety |
-| ![Tailwind CSS](https://img.shields.io/badge/-Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white) | Styling |
-| ![Framer Motion](https://img.shields.io/badge/-Framer_Motion-0055FF?logo=framer&logoColor=white) | Animations |
-| ![Lucide React](https://img.shields.io/badge/-Lucide-F56565?logo=lucide&logoColor=white) | Icons |
+|                                              Technology                                              |     Purpose     |
+| :--------------------------------------------------------------------------------------------------: | :-------------: |
+|                  ![Next.js](https://img.shields.io/badge/-Next.js-000?logo=next.js)                  | React Framework |
+|    ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white)    |   Type Safety   |
+| ![Tailwind CSS](https://img.shields.io/badge/-Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white) |     Styling     |
+|   ![Framer Motion](https://img.shields.io/badge/-Framer_Motion-0055FF?logo=framer&logoColor=white)   |   Animations    |
+|       ![Lucide React](https://img.shields.io/badge/-Lucide-F56565?logo=lucide&logoColor=white)       |      Icons      |
 
 </div>
 
@@ -157,24 +169,28 @@ aperture-alchemist/
 ## 🎨 Key Features Breakdown
 
 ### 🌟 Hero Section
+
 - **Animated card carousel** with 18 portfolio pieces
 - **Smooth parallax scrolling** triggered by viewport
 - **Optimized for mobile** with reduced scroll distance
 - **GPU-accelerated** animations using `will-change` and `transform`
 
 ### 🎯 Projects Page
+
 - **Masonry grid layout** with dynamic filtering
 - **Category navigation** with arrow controls
 - **Hover effects** with play button overlay
 - **Responsive columns** adapting to screen size
 
 ### 📸 Photo Albums
+
 - **Parallax gallery** with staggered columns
 - **Lightbox viewer** with keyboard navigation
 - **Category filters** with smooth transitions
 - **Touch-optimized** for mobile devices
 
 ### 🎭 Design System
+
 - **Color Palette:** Deep blacks with golden accents (#FFD700)
 - **Typography:** Montserrat (sans-serif) & Cinzel (serif)
 - **Animations:** Smooth cubic-bezier easing curves
@@ -201,11 +217,9 @@ export const allProjects: Project[] = [
     featured: true,
     year: 2024,
     description: "Project description...",
-    credits: [
-      { role: "Director", name: "Your Name" }
-    ]
-  }
-]
+    credits: [{ role: "Director", name: "Your Name" }],
+  },
+];
 ```
 
 ### Changing Theme Colors
