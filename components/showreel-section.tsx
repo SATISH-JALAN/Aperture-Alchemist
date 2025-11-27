@@ -47,7 +47,7 @@ export default function ShowreelSection() {
             className="w-full h-full object-cover"
             poster="/videography-showreel-preview.jpg"
           >
-            <source src="/showreel.mp4" type="video/mp4" />
+            <source src="/videos/Showreel.mp4" type="video/mp4" />
             Your browser does not support video playback.
           </video>
         </motion.div>

@@ -65,7 +65,7 @@ export default function ContactPage() {
                     <div className="space-y-1">
                       <p className="text-gray-400 text-sm uppercase tracking-wider font-medium">Address</p>
                       <p className="text-white text-lg leading-relaxed">
-                        Action Area 1D, NewTown, <br />
+                        47 Adarsha Nagar,  Kolkata-700105, <br />
                         Kolkata, 700156
                       </p>
                     </div>
