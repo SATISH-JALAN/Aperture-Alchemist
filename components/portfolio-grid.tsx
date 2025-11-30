@@ -37,9 +37,10 @@ const portfolioItems = [
   },
 ]
 
-export default function PortfolioGrid() {
+export default function PortfolioGrid({ id }: { id?: string }) {
   return (
     <motion.section
+      id={id}
       className="w-full bg-black py-12 md:py-20 lg:py-32 px-4 md:px-6 lg:px-12 relative"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}

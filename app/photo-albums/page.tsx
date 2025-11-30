@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { albums } from "@/lib/albums"
 import { AlbumCard } from "@/components/album-card"
@@ -10,6 +11,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 const categories = ["All", "Wedding", "Event", "Travel", "Portrait", "Others"]
 
 export default function PhotoAlbumsPage() {
+  const router = useRouter()
   const [activeCategory, setActiveCategory] = useState("All")
   const [mounted, setMounted] = useState(false)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -116,7 +118,17 @@ export default function PhotoAlbumsPage() {
             {categories.map((category) => (
               <button
                 key={category}
-                onClick={() => setActiveCategory(category)}
+                onClick={() => {
+                  if (category === "Portrait") {
+                    const portraitAlbum = albums.find((a) => a.slug === "portraits")
+                    if (portraitAlbum) {
+                      router.push(`/photo-albums/${portraitAlbum.slug}`)
+                      return
+                    }
+                  }
+
+                  setActiveCategory(category)
+                }}
                 className={cn(
                   "text-sm font-medium tracking-widest uppercase transition-all duration-300 relative py-2 whitespace-nowrap flex-shrink-0",
                   activeCategory === category ? "text-[#FFD700]" : "text-white/40 hover:text-white",

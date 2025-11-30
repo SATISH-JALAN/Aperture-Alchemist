@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronDown } from "lucide-react"
 import { useRouter } from "next/navigation" // importing useRouter for navigation
@@ -40,7 +41,7 @@ export default function HomePage() {
 
   useEffect(() => {
     let ticking = false
-    
+
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
@@ -75,19 +76,19 @@ export default function HomePage() {
 
     let animationFrameId: number
     let lastTime = Date.now()
-    
+
     const animate = () => {
       const now = Date.now()
       const delta = now - lastTime
       lastTime = now
-      
+
       // Only animate when scroll is at the end (loop phase)
       if (scrollProgress >= 0.95) {
         setAutoScrollOffset((prev) => prev - (0.3 * delta / 16))
       }
       animationFrameId = requestAnimationFrame(animate)
     }
-    
+
     animationFrameId = requestAnimationFrame(animate)
 
     return () => cancelAnimationFrame(animationFrameId)
@@ -215,7 +216,7 @@ export default function HomePage() {
     },
   ]
 
-  const displayCards = isMobile ? cards : cards
+  const displayCards = cards.slice(5, 12)
 
   // This ensures cards scale down and shift position to avoid overlapping the "Explore Work" button
   const getResponsiveRowConfig = (originalY: number, originalScale: number) => {
@@ -313,8 +314,8 @@ export default function HomePage() {
     }
 
     if (scrollProgress >= loopStart) {
-      const loopWidth = isMobile ? cards.length * mobileSpacing : 6800
-      const minX = isMobile ? -(cards.length * mobileSpacing) / 2 : -3400
+      const loopWidth = isMobile ? displayCards.length * mobileSpacing : 2800
+      const minX = isMobile ? -(displayCards.length * mobileSpacing) / 2 : -1400
 
       const rawPos = (isMobile ? mobileRowX : card.row.x) + autoScrollOffset
 
@@ -373,10 +374,11 @@ export default function HomePage() {
               style={{ height: "100vh", perspective: "1000px" }}
             >
               {displayCards.map((card, index) => {
-                const cardStyle = getCardStyle(card, index)
+                const originalIndex = cards.indexOf(card)
+                const cardStyle = getCardStyle(card, originalIndex)
                 // Smooth transitions during scroll phases, none during auto-scroll loop
                 const isInLoop = scrollProgress >= 0.95
-                
+
                 return (
                   <div
                     key={index}
@@ -388,11 +390,14 @@ export default function HomePage() {
                       transition: isInLoop ? 'none' : 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease-out',
                     }}
                   >
-                    <img
+                    <Image
                       src={card.image || "/placeholder.svg"}
                       alt={`Artwork ${index + 1}`}
-                      className="w-full h-full object-cover"
-                      style={{ 
+                      fill
+                      sizes="(max-width: 768px) 176px, 300px"
+                      priority={index < 6}
+                      className="object-cover"
+                      style={{
                         backfaceVisibility: 'hidden',
                         transform: 'translateZ(0)',
                       }}
@@ -446,6 +451,7 @@ export default function HomePage() {
                     >
                       Explore Work
                     </Button>
+
                   </div>
                 </div>
               </div>
