@@ -8,7 +8,7 @@ import { albums } from "@/lib/albums"
 import { AlbumCard } from "@/components/album-card"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-const categories = ["All", "Wedding", "Event", "Travel", "Portrait", "Others"]
+const categories = ["All", "Wedding", "Event", "Products", "Portrait"]
 
 export default function PhotoAlbumsPage() {
   const router = useRouter()
@@ -123,6 +123,13 @@ export default function PhotoAlbumsPage() {
                     const portraitAlbum = albums.find((a) => a.slug === "portraits")
                     if (portraitAlbum) {
                       router.push(`/photo-albums/${portraitAlbum.slug}`)
+                      return
+                    }
+                  }
+                  if (category === "Products") {
+                    const productsAlbum = albums.find((a) => a.slug === "products")
+                    if (productsAlbum) {
+                      router.push(`/photo-albums/${productsAlbum.slug}`)
                       return
                     }
                   }
