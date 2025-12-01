@@ -269,7 +269,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-### 💫 Made with passion by [SATISH-JALAN & MRINMOY](https://github.com/SATISH-JALAN) (https://github.com/Mrinmoy-programmer07)
+### 💫 Made with passion by [SATISH-JALAN](https://github.com/SATISH-JALAN) [&] [MRINMOY-DAS](https://github.com/Mrinmoy-programmer07)
 
 **If you found this project helpful, please consider giving it a ⭐**
 
